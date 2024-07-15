@@ -1,58 +1,16 @@
-<div class="screen-color">
+<div>
     <main role="main" class="container text-center">
-            <div>
-              <p vg-attr='vugu.VGAttributeListerFunc(c.makeAttrs)'></p>
-            </div>
-            <div>
-                <p vg-if='c.ShowText'>
-                    Conditional text here.
-                </p>
-            </div>
-
         <div class="mt-5">
-            <h1 class="some-component-here"><strong>おみくじGo</strong></h1>
-            <p class="lead">This page is being rendered via 
-                <a @click='event.PreventDefault();c.ShowWasm=!c.ShowWasm' href="https://webassembly.org/">WebAssembly</a>,
-                written in
-                <a @click='event.PreventDefault();c.ShowGo=!c.ShowGo' href="https://golang.org/">Go</a>
-                using
-                <a @click='event.PreventDefault();c.ShowVugu=!c.ShowVugu' href="https://vugu.org/">Vugu</a>.
-            </p>
-
-            <div vg-if='c.ShowWasm' class="alert alert-primary" role="alert">
-                <strong>WebAssembly</strong> (abbreviated Wasm) is a binary instruction format.
-                It is designed as a portable target for compilation of high-level languages like Go/C/C++/Rust, 
-                enabling deployment on the web for client and server applications.
-                <a target="_blank" href="https://webassembly.org/">Read more at webassembly.org &raquo;</a>
-            </div>
-
-            <div vg-if='c.ShowGo' class="alert alert-primary" role="alert">
-                <strong>Go</strong> is an open source programming language that makes it easy to build simple, reliable, and efficient software.
-                <a target="_blank" href="https://golang.org/">Read more at golang.org &raquo;</a>
-            </div>
-
-            <div vg-if='c.ShowVugu' class="alert alert-primary" role="alert">
-                <strong>Vugu</strong> is a modern web UI library for Go+WebAssembly.
-                It is written in pure Go, works well in most modern browsers and supports 
-                <span vg-if='time.Now().Year()==2020'>most</span> features one would expect from
-                a web framework.  It also makes a point of attempting to apply best practices 
-                from Go to web application UI development and prefers idiomatic solutions over
-                techniques that follow patterns from JavaScript wherever possible.
-                <a target="_blank" href="https://vugu.org/">Read more at vugu.org &raquo;</a>
-            </div>
-
+            <h1 class="display-1">⛩</h1>
+            <h1 class="m-plus-rounded-1c-regular"><strong>Omikuji Go</strong></h1>
             <div>
-                <button @click="c.DrawOmikuji(event)">おみくじを引く</button>
-                <div vg-if="c.result != nil">
-                    <h3>運勢: <span vg-html="c.result.fortune"></span></h3>
-                    <p vg-html="c.result.body"></p>
-                </div>
+              <button type="button" class="mt-5 m-plus-rounded-1c-regular btn bg-danger text-white btn-lg" @click="c.DrawOmikuji(event)">おみくじを引く</button>
             </div>
-
-            <div>
-            <span></span>
+            <div vg-if="c.result != nil" class="mt-5 alert alert-danger m-plus-rounded-1c-regular" role="alert" >
+              <h3>運勢: <span vg-html="c.result.fortune"></span></h3>
+              <p vg-html="c.result.body"></p>
+              <p vg-html="c.result.img" class="display-2"></p>
             </div>
-
         </div>
     </main>
 </div>
@@ -60,57 +18,46 @@
 <script type="application/x-go">
 
 import (
-    "time"
     "math/rand"
 )
 
 type Root struct {
-    ShowWasm bool `vugu:"data"`
-    ShowGo bool   `vugu:"data"`
-    ShowVugu bool `vugu:"data"`
-
-    ShowText bool `vugu:"data"`
-    BgColor string `vugu:"blue"`
-
-        omikujiList []Omikuji
-        result      *Omikuji
-
-
+    omikujiList []Omikuji
+    result      *Omikuji
 }
 
 type Omikuji struct {
     fortune string
     body    string
-}
-
-/*
-type OmikujiComponent struct {
-    omikujiList []Omikuji
-    result      *Omikuji
-}
-*/
-
-func (c *Root) makeAttrs() (ret []vugu.VGAttribute) {
-  ret = append(ret, vugu.VGAttribute{
-    Key:"style",
-    Val:"background:"+c.BgColor,
-  })
-  return
+    img     string
 }
 
 func (c *Root) Init(ctx vugu.InitCtx) {
     c.omikujiList = []Omikuji{
         {
             fortune: "大吉",
-            body: "あなたの努力が実を結ぶ時です。素晴らしい成果が待っています。",
+            body: "みなぎるパワーーー！。素晴らしい結果が待っています。",
+            img: "🥳",
+        },
+        {
+            fortune: "吉",
+            body: "いいことありそう？ ストレッチで心も体もやわらかくご機嫌に。",
+            img: "🧘‍",
         },
         {
             fortune: "中吉",
-            body: "小さな幸せが日々積み重なり、大きな喜びとなるでしょう。",
+            body: "紫外線注意！新鮮な果物をとり美白を保ちましょう。",
+            img: "🍎‍",
         },
         {
             fortune: "小吉",
-            body: "今の経験が将来の成功につながります。諦めずに前進しましょう。",
+            body: "足元注意！慌てす深呼吸。",
+            img: "😉",
+        },
+        {
+            fortune: "末吉",
+            body: "疲れちゃうかも？自分にご褒美をあげましょう。",
+            img: "🍹",
         },
     }
 }
@@ -119,14 +66,11 @@ func (c *Root) DrawOmikuji(event vugu.DOMEvent) {
     index := rand.Intn(len(c.omikujiList))
     c.result = &c.omikujiList[index]
 }
-
-
 </script>
-
 <style>
-
-
-.some-component-here strong {
-    color: #7c5a9e;
+.m-plus-rounded-1c-regular {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 </style>

@@ -21,8 +21,7 @@ func main() {
 		`<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&display=swap" rel="stylesheet">
-`))
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">`))
 	mux.Exact("/main.wasm", devutil.NewMainWasmHandler(wc))
 	mux.Exact("/wasm_exec.js", devutil.NewWasmExecJSHandler(wc))
 	mux.Default(devutil.NewFileServer().SetDir("."))
