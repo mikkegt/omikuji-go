@@ -1,3 +1,8 @@
+omikuji/*_components_gen.go
+
+bin
+**_vgen.go
+
 # If you prefer the allow list template instead of the deny list, see community template:
 # https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
 #
@@ -15,8 +20,55 @@
 *.out
 
 # Dependency directories (remove the comment below to include it)
-# vendor/
+vendor/
 
 # Go workspace file
 go.work
 go.work.sum
+
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE and editor folders
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Node modules
+node_modules/
+
+# Tailwind CSS build output
+dist/styles/tailwind.css
+
+# Vugu build artifacts
+*.wasm
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# Temporary files
+tmp/
+temp/
+
+# Build output directory
+build/
+
+# Debug files
+debug
+
+# If you're using Air for live reloading
+tmp/

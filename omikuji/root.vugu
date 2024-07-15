@@ -1,0 +1,76 @@
+<div>
+    <main role="main" class="container text-center">
+        <div class="mt-5">
+            <h1 class="display-1">⛩</h1>
+            <h1 class="m-plus-rounded-1c-regular"><strong>Omikuji Go</strong></h1>
+            <div>
+              <button type="button" class="mt-5 m-plus-rounded-1c-regular btn bg-danger text-white btn-lg" @click="c.DrawOmikuji(event)">おみくじを引く</button>
+            </div>
+            <div vg-if="c.result != nil" class="mt-5 alert alert-danger m-plus-rounded-1c-regular" role="alert" >
+              <h3>運勢: <span vg-html="c.result.fortune"></span></h3>
+              <p vg-html="c.result.body"></p>
+              <p vg-html="c.result.img" class="display-2"></p>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script type="application/x-go">
+
+import (
+    "math/rand"
+)
+
+type Root struct {
+    omikujiList []Omikuji
+    result      *Omikuji
+}
+
+type Omikuji struct {
+    fortune string
+    body    string
+    img     string
+}
+
+func (c *Root) Init(ctx vugu.InitCtx) {
+    c.omikujiList = []Omikuji{
+        {
+            fortune: "大吉",
+            body: "みなぎるパワーーー！。素晴らしい結果が待っています。",
+            img: "🥳",
+        },
+        {
+            fortune: "吉",
+            body: "いいことありそう？ ストレッチで心も体もやわらかくご機嫌に。",
+            img: "🧘‍",
+        },
+        {
+            fortune: "中吉",
+            body: "紫外線注意！新鮮な果物をとり美白を保ちましょう。",
+            img: "🍎‍",
+        },
+        {
+            fortune: "小吉",
+            body: "足元注意！慌てす深呼吸。",
+            img: "😉",
+        },
+        {
+            fortune: "末吉",
+            body: "疲れちゃうかも？自分にご褒美をあげましょう。",
+            img: "🍹",
+        },
+    }
+}
+
+func (c *Root) DrawOmikuji(event vugu.DOMEvent) {
+    index := rand.Intn(len(c.omikujiList))
+    c.result = &c.omikujiList[index]
+}
+</script>
+<style>
+.m-plus-rounded-1c-regular {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+</style>
