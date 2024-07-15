@@ -3,7 +3,7 @@
 ## How to start
 
 ```
-git@github.com:mikkegt/omikuji-go.git
+git clone git@github.com:mikkegt/omikuji-go.git
 cd omikuji
 vgrun devserver.go   
 ```
